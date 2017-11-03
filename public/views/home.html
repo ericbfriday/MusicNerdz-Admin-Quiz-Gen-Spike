@@ -1,0 +1,27 @@
+<section>
+    <form>
+        <div class="quizInfo">
+            <md-input-container>
+                <label>Quiz Name:</label>
+                <input ng-model="hc.quiz.name">
+            </md-input-container>
+            <md-input-container>
+                <label>Tags:</label>
+                <input ng-model="hc.quiz.tags">
+            </md-input-container>
+            <br>
+        </div>
+
+        <md-button class="md-primary" function="hc.newMultipleChoice()">Make New Multiple Choice Question</md-button>
+        <div ng-bind-html="hc.multipleChoiceTemplate"></div>
+        <!-- Cannot use ng-bind-html with ngSanitize for injecting new question templates to DOM 
+        due to expressions from angular/ngMaterial-->
+
+        <md-button class="md-primary" function="hc.newShortAnswer()">Make New Short Answer Question</md-button>
+        <div ng-bind-html="hc.shortAnswerTemplate" class="shortAnswer"></div>
+
+        <md-button class="md-primary" function="hc.newEssay()">Make New Essay Topic</md-button>
+        <div ng-bind-html="hc.essayTemplate" class="essayQuestion"></div>
+
+    </form>
+</section>
