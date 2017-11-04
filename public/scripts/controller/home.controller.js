@@ -20,7 +20,7 @@ myApp.controller('HomeController', function ($http, $scope, $mdDialog) {
     vm.currentMCA2 = '';
     vm.currentMCA3 = '';
     vm.currentMCA4 = '';
-    vm.currentMCCA = ''; // MC Correct Answer
+    vm.currentMCCA = ''; // MCCA = Multiple Choice Correct Answer
     vm.currentSAQ = ''; // SA Question
     vm.currentSAA = ''; // SA Answer/hints to grade on
     vm.currentEQ = ''; // Essay Question/Topic
@@ -34,16 +34,16 @@ myApp.controller('HomeController', function ($http, $scope, $mdDialog) {
             this.a2 = a2;
             this.a3 = a3;
             this.a4 = a4;
-            this.ca = ca;
+            this.ca = ca; // ca = correct answer
             this.type = 'mc';
         }
     } // end MCQuestion class
 
     // pushes MC Q into Q array
     vm.pushMCQ = (q, a1, a2, a3, a4, ca) => {
-        vm.newMCQuestion = new MCQuestion(q, a1, a2, a3, a4, ca);
-        vm.questions.push(vm.newMCQuestion);
-        console.log('loggin vm.newMCQuestion in pushMCQuestion -> ', vm.newMCQuestion);
+        vm.newMCQ = new MCQuestion(q, a1, a2, a3, a4, ca);
+        vm.questions.push(vm.newMCQ);
+        console.log('loggin vm.newMCQ in pushMCQuestion -> ', vm.newMCQ);
 
         // clear the form for the next questions submission
         vm.currentMCQ = '';
@@ -56,10 +56,10 @@ myApp.controller('HomeController', function ($http, $scope, $mdDialog) {
 
     // establishes structure for SA Q to be inserted into Q array
     class ShortAnsQuestion {
-        constructor (q, a) {
-            this.question = q;
-            this.ans = a;
-            this.type = 'sa';
+        constructor (q, a) { // q = question, a = answer
+            this.q = q;
+            this.a = a;
+            this.type = 'sa'; // sa = short answer
         }
     } // end ShortAnsQuestion Class
 
@@ -77,8 +77,8 @@ myApp.controller('HomeController', function ($http, $scope, $mdDialog) {
     // establishes structure for essay class Qs to be pushed into Q array
     class Essay {
         constructor (q, a) {
-            this.question = q;
-            this.ans = a;
+            this.q = q;
+            this.a = a;
             this.type = 'essay';
         }
     } // end Essay class

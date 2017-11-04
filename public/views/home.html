@@ -112,6 +112,19 @@
                     <md-button class="md-primary md-raised" ng-click="showConfirm($event)">Finish & Submit Module</md-button>
                 </md-card>
             </form>
+            <div class="quizSummary">
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Summary of Quiz Questions</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <ol>
+                        <li ng-repeat="question in hc.questions">{{question.q}}</li>
+                    </ol>
+                </md-card>
+
+            </div>
         </div>
     </md-content>
 
