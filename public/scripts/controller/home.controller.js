@@ -1,5 +1,5 @@
 // myApp.controller('HomeController', function ($scope, $sce) { // remnant from trying to post questions to dom via sanitize
-myApp.controller('HomeController', function ($http) {
+myApp.controller('HomeController', function ($http, $scope, $mdDialog) {
     console.log('in home controller');
 
     // Code Readability notes:
@@ -122,4 +122,22 @@ myApp.controller('HomeController', function ($http) {
         });
     }; // end pushToQuiz function
 
+    // confirm functionality for submit of form
+    $scope.showConfirm = function(ev) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        vm.status = '';
+        var confirm = $mdDialog.confirm()
+              .title('Confirm Quiz Submission')
+              .textContent('Do you wish to submit this quiz? Quizzes are unable to be edited after submission.')
+              .ariaLabel('Confirm you wish to submit the quiz.')
+              .targetEvent(ev)
+              .ok('YES')
+              .cancel('NO');
+    
+        $mdDialog.show(confirm).then(function() {
+          $scope.status = 'Form submitted.';
+        }, function() {
+          $scope.status = 'Form not submitted.';
+        });
+      };
 });
