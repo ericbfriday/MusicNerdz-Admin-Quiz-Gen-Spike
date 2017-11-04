@@ -1,4 +1,5 @@
 <section>
+    <!-- See readability notes in controller for abbreviations -->
     <form name="newQuizForm">
         <div class="quizInfo">
             <md-input-container>
@@ -6,7 +7,7 @@
                 <input ng-model="hc.name">
             </md-input-container>
             <md-input-container>
-                <label>Tags:</label>
+                <label>Tags - Replace with chips</label>
                 <input ng-model="hc.tags">
             </md-input-container>
             <br>
@@ -23,26 +24,30 @@
             a)
             <md-input-container>
                 <label>Potential Answer A</label>
-                <input ng-model="hc.currentMCA1"> b)
-                <md-input-container>
-                    <label>Potential Answer B</label>
-                    <input ng-model="hc.currentMCA2">
-                </md-input-container>
-                c)
-                <md-input-container>
-                    <label>Potential Answer C</label>
-                    <input ng-model="hc.currentMCA3">
-                </md-input-container>
-                d)
-                <md-input-container>
-                    <label>Potential Answer D</label>
-                    <input ng-model="hc.currentMCA4">
-                </md-input-container><br/>
-                <md-input-container>
-                        <label>Correct Answer</label>
-                        <input ng-model="hc.currentMCCA">
-                    </md-input-container><br/>
-                <md-button class="md-primary" ng-click="hc.pushMCQ(hc.currentMCQ, hc.currentMCA1, hc.currentMCA2, hc.currentMCA3, hc.currentMCA4)">Make New Multiple Choice Question</md-button>
+                <input ng-model="hc.currentMCA1">
+            </md-input-container>
+            b)
+            <md-input-container>
+                <label>Potential Answer B</label>
+                <input ng-model="hc.currentMCA2">
+            </md-input-container>
+            c)
+            <md-input-container>
+                <label>Potential Answer C</label>
+                <input ng-model="hc.currentMCA3">
+            </md-input-container>
+            d)
+            <md-input-container>
+                <label>Potential Answer D</label>
+                <input ng-model="hc.currentMCA4">
+            </md-input-container>
+            <br/>
+            <md-input-container>
+                <label>Correct Answer</label>
+                <input ng-model="hc.currentMCCA">
+            </md-input-container>
+            <br/>
+            <md-button class="md-primary" ng-click="hc.pushMCQ(hc.currentMCQ, hc.currentMCA1, hc.currentMCA2, hc.currentMCA3, hc.currentMCA4, hc.currentMCCA)">Make New Multiple Choice Question</md-button>
         </div>
 
         <!-- Short Answer Tempalte -->
@@ -54,8 +59,9 @@
             <md-input-container>
                 <label>Notes or Answer</label>
                 <input ng-model="hc.currentSAA">
-            </md-input-container><br/>
-            <md-button class="md-primary" function="hc.newShortAnswer()">Make New Short Answer Question</md-button>
+            </md-input-container>
+            <br/>
+            <md-button class="md-primary" ng-click="hc.pushSAQ(hc.currentSAQ, hc.currentSAA)">Make New Short Answer Question</md-button>
         </div>
 
         <div class="essay">Essay:
@@ -68,11 +74,11 @@
                 <input ng-model="hc.currentEA">
             </md-input-container>
             <br>
-            <md-button class="md-primary" function="hc.newEssay()">Make New Essay Topic</md-button>
+            <md-button class="md-primary" ng-click="hc.pushEssayQ(hc.currentEQ, hc.currentEA)">Make New Essay Topic</md-button>
         </div>
 
         <div>
-            <md-button class="md-primary" function="hc.pushToQuiz(hc.name, hc.tags, hc.questions)">Finish & Submit Module</md-button>
+            <md-button class="md-primary" ng-click="hc.pushToQuiz(hc.name, hc.tags, hc.questions)">Finish & Submit Module</md-button>
         </div>
     </form>
     <!-- Origin try below using ng-bind-html. Issues with interpolation and XSS vulnerability meant a

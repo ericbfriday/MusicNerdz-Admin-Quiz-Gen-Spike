@@ -1,5 +1,5 @@
 // myApp.controller('HomeController', function ($scope, $sce) { // remnant from trying to post questions to dom via sanitize
-myApp.controller('HomeController', function () {
+myApp.controller('HomeController', function ($http) {
     console.log('in home controller');
 
     // Code Readability notes:
@@ -11,12 +11,13 @@ myApp.controller('HomeController', function () {
     // essay = essay (like SA, but longer char limit)
 
     const vm = this;
+
     vm.quiz = {data: []};
     vm.name = '';
-    vm.tags = ['history', 'music'];
+    vm.tags = [];
     vm.questions = []; // holds questions to push into quiz
     vm.currentMCQ = ''; // MC Question
-    vm.currentMCA1 = ''; // MC Answers
+    vm.currentMCA1 = ''; // MC Answers 1-4 below
     vm.currentMCA2 = '';
     vm.currentMCA3 = '';
     vm.currentMCA4 = '';
@@ -37,7 +38,7 @@ myApp.controller('HomeController', function () {
             this.correctAns = ca;
             this.type = 'mc';
         }
-    }
+    } // end MCQuestion class
 
     // pushes MC Q into Q array
     vm.pushMCQ = (q, a1, a2, a3, a4, ca) => {
@@ -52,7 +53,7 @@ myApp.controller('HomeController', function () {
         vm.currentMCA3 = '';
         vm.currentMCA4 = '';
         vm.currentMCCA = '';
-    };
+    }; // end pushMCQ function
 
     // creates a SA Q to be inserted into Q array
     class ShortAnsQuestion {
@@ -61,14 +62,18 @@ myApp.controller('HomeController', function () {
             this.ans = a;
             this.type = 'sa';
         }
-    }
+    } // end ShortAnsQuestion Class
 
     // pushes SA Q into Q array
     vm.pushSAQ = (q, a) => {
         vm.newSAQuestion = new ShortAnsQuestion(q, a);
         vm.questions.push(vm.newSAQuestion);
         console.log('logging vm.newSAQuestion in pushShortAnsQuestion -> ', vm.newSAQuestion);
-    };
+
+        // clear SA fields
+        vm.currentSAQ = ''; // SA Question
+        vm.currentSAA = ''; // SA Answer/hints to grade on
+    }; // end pushSAQ function
 
     // creates Essay question to be pushed into Q array
     class Essay {
@@ -77,31 +82,46 @@ myApp.controller('HomeController', function () {
             this.ans = a;
             this.type = 'essay';
         }
-    }
+    } // end Essay class
 
     // pushes Essay question into Q array
     vm.pushEssayQ = (q, a) => {
         vm.newEQ = new Essay(q, a);
         vm.questions.push(vm.newEQ);
         console.log('logging vm.newEQ in pushEssayQ -> ', vm.newEQ);
-        
-    };
 
-    // creates overarching 'Test' item which holds name, tags, and questions.
-    // 'Test' item is equivalent to quiz.
-    // entire 'Test'/quiz will be sent to backend for insertion into DB.
-    class Test {
+        // clear Essay fields
+        vm.currentEQ = ''; // Essay Question/Topic
+        vm.currentEA = ''; // Essay Answer/hints to grade on
+    }; // end pushEssayQ function
+
+    // creates overarching 'quiz' item which holds name, tags, and questions.
+    // entire 'quiz'will be sent to backend for insertion into DB.
+    class Quiz {
         constructor (name, tags, q){
             this.name = name; // name is to be a string
             this.tags = tags; // tags will be an array of string
             this.questions = q; // questions will be a class of either multiple choice, short answer, or essay. 
                                         // questions will be an array of objects of the above questions.
         }
-    }
+    } // end Quiz class
 
+    // creates quiz object using name, tags, and questions array.
+    // POST calls to router with quiz object. Response logged and quiz array reset to 0;
     vm.pushToQuiz = (name, tags, q) => {
-        vm.newQuiz = new Test(name, tags, q);
+        vm.newQuiz = new Quiz(name, tags, q);
         vm.quiz.data.push(vm.newQuiz);
         console.log('logging vm.quiz in pushToquiz => ', vm.quiz);
-    };
+        return $http.post('/quizGeneration', vm.quiz)
+        .then((response)=>{
+            console.log('Posted');
+            vm.quiz.data.length = 0; // empties quiz item
+            vm.name = '';
+            vm.tags = [];
+        })
+        .catch((e)=>{
+            console.log('logging catch error in vm.pushToQuiz', e);
+        });
+    }; // end pushToQuiz function
+
 });
