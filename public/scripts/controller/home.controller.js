@@ -1,5 +1,5 @@
 myApp.controller('HomeController', function ($http, $scope, $mdDialog) {
-    console.log('in home controller');
+    // console.log('in home controller');
 
     // Code Readability notes:
     // q = question
@@ -7,7 +7,7 @@ myApp.controller('HomeController', function ($http, $scope, $mdDialog) {
     // sa = short answer
     // mc = multiple choice
     // ca = correct answer (for multiple choice)
-    // E = essay (like SA, but longer char limit)
+    // e = essay (like SA, but longer char limit)
 
     const vm = this;
 
@@ -29,12 +29,12 @@ myApp.controller('HomeController', function ($http, $scope, $mdDialog) {
     // establishes structure for multiple choice question to be inserted into questions array
     class MCQuestion {
         constructor (q, a1, a2, a3, a4, ca){
-            this.question = q;
-            this.ans1 = a1;
-            this.ans2 = a2;
-            this.ans3 = a3;
-            this.ans4 = a4;
-            this.correctAns = ca;
+            this.q = q;
+            this.a1 = a1;
+            this.a2 = a2;
+            this.a3 = a3;
+            this.a4 = a4;
+            this.ca = ca;
             this.type = 'mc';
         }
     } // end MCQuestion class
@@ -123,7 +123,7 @@ myApp.controller('HomeController', function ($http, $scope, $mdDialog) {
 
     // confirm functionality for submit of form
     $scope.showConfirm = function(ev) {
-        vm.status = '';
+        vm.status = ''; // status of submission to log if submission is declined.
         var confirm = $mdDialog.confirm()
               .title('Confirm Quiz Submission')
               .textContent('Do you wish to submit this quiz? Quizzes are unable to be edited after submission.')
@@ -131,10 +131,13 @@ myApp.controller('HomeController', function ($http, $scope, $mdDialog) {
               .targetEvent(ev)
               .ok('YES')
               .cancel('NO');
-        $mdDialog.show(confirm).then(function() {
+        $mdDialog.show(confirm).then(function() { // following script runs if 'yes' is selected.
           $scope.status = 'Form submitted.';
-        }, function() {
-          $scope.status = 'Form not submitted.';
+          vm.pushToQuiz(vm.name, vm.questions);
+        }, function() { // status updated and logged if form is not submitted.
+          $scope.status = 'Form not submitted.'; 
+          console.log($scope.status);
+          
         });
       };
 });
