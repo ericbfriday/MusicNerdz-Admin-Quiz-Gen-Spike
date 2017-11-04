@@ -1,4 +1,3 @@
-// myApp.controller('HomeController', function ($scope, $sce) { // remnant from trying to post questions to dom via sanitize
 myApp.controller('HomeController', function ($http, $scope, $mdDialog) {
     console.log('in home controller');
 
@@ -124,7 +123,6 @@ myApp.controller('HomeController', function ($http, $scope, $mdDialog) {
 
     // confirm functionality for submit of form
     $scope.showConfirm = function(ev) {
-        // Appending dialog to document.body to cover sidenav in docs app
         vm.status = '';
         var confirm = $mdDialog.confirm()
               .title('Confirm Quiz Submission')
@@ -133,7 +131,6 @@ myApp.controller('HomeController', function ($http, $scope, $mdDialog) {
               .targetEvent(ev)
               .ok('YES')
               .cancel('NO');
-    
         $mdDialog.show(confirm).then(function() {
           $scope.status = 'Form submitted.';
         }, function() {
