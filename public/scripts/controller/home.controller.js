@@ -8,12 +8,13 @@ myApp.controller('HomeController', function ($http) {
     // sa = short answer
     // mc = multiple choice
     // ca = correct answer (for multiple choice)
-    // essay = essay (like SA, but longer char limit)
+    // E = essay (like SA, but longer char limit)
 
     const vm = this;
 
     vm.quiz = {data: []};
     vm.name = '';
+    vm.currentQType = '';
     vm.questions = []; // holds questions to push into quiz
     vm.currentMCQ = ''; // MC Question
     vm.currentMCA1 = ''; // MC Answers 1-4 below

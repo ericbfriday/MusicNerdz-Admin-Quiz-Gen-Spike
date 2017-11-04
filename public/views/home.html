@@ -4,16 +4,24 @@
         <div layout="column">
             <form name="newQuizForm">
                 <md-card>
-                    <md-input-container>
+                    <md-input-container flex="100">
                         <label>
                             <span class="md-headline">Quiz Name</span>
                         </label>
                         <input ng-model="hc.name">
                     </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Type of Question to Add</label>
+                        <md-select name="correctAnswer" ng-model="hc.currentQType">
+                            <md-option value="mc" selected>Multiple Choice</md-option>
+                            <md-option value="sa">Short Answer</md-option>
+                            <md-option value="e">Essay</md-option>
+                        </md-select>
+                    </md-input-container>
                 </md-card>
 
                 <!-- Multiple Choice Template -->
-                <md-card>
+                <md-card ng-show="hc.currentQType=='mc'">
                     <md-card-title>
                         <md-card-title-text>
                             <span class="md-headline">Multiple Choice:</span>
@@ -50,19 +58,19 @@
                             <md-input-container flex="50">
                                 <label>Correct Answer</label>
                                 <md-select name="correctAnswer" ng-model="hc.currentMCCA" required>
-                                <md-option value="a">A</md-option>
-                                <md-option value="b">B</md-option>
-                                <md-option value="c">C</md-option>
-                                <md-option value="d">D</md-option>
-                            </md-select>
+                                    <md-option value="a">A</md-option>
+                                    <md-option value="b">B</md-option>
+                                    <md-option value="c">C</md-option>
+                                    <md-option value="d">D</md-option>
+                                </md-select>
                             </md-input-container>
                         </div>
-                    </md-card-content
+                    </md-card-content>
                     <md-button class="md-primary" ng-click="hc.pushMCQ(hc.currentMCQ, hc.currentMCA1, hc.currentMCA2, hc.currentMCA3, hc.currentMCA4, hc.currentMCCA)">Make New Multiple Choice Question</md-button>
                 </md-card>
 
                 <!-- Short Answer Tempalte -->
-                <md-card>
+                <md-card ng-show="hc.currentQType=='sa'">
                     <md-card-title>
                         <md-card-title-text>
                             <span class="md-headline">Short Answer:</span>
@@ -81,7 +89,7 @@
                 </md-card>
 
                 <!-- Essay template below -->
-                <md-card>
+                <md-card ng-show="hc.currentQType=='e'">
                     <md-card-title>
                         <md-card-title-text>
                             <span class="md-headline">Essay:</span>
