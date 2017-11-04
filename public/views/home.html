@@ -1,8 +1,8 @@
 <section>
     <!-- See readability notes in controller for abbreviations -->
     <md-content>
-        <div layout="column">
-            <form name="newQuizForm">
+        <div layout="row">
+            <form name="newQuizForm" flex="65" layout-fill>
                 <md-card>
                     <md-input-container flex="100">
                         <label>
@@ -112,18 +112,21 @@
                     <md-button class="md-primary md-raised" ng-click="showConfirm($event)">Finish & Submit Module</md-button>
                 </md-card>
             </form>
-            <div class="quizSummary">
-                <md-card>
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">Summary of Quiz Questions</span>
-                        </md-card-title-text>
-                    </md-card-title>
-                    <ol>
-                        <li ng-repeat="question in hc.questions">{{question.q}}</li>
-                    </ol>
-                </md-card>
 
+            <!-- Quiz summary for admins to track their progress in adding quiz questions. -->
+            <div flex="35" layout-fill>
+                <div class="quizSummary">
+                    <md-card>
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">Summary of Quiz Questions</span>
+                            </md-card-title-text>
+                        </md-card-title>
+                        <ol>
+                            <li ng-repeat="question in hc.questions">{{question.q}}</li>
+                        </ol>
+                    </md-card>
+                </div>
             </div>
         </div>
     </md-content>
