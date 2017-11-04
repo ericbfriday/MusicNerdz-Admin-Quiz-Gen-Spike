@@ -10,10 +10,6 @@
                         </label>
                         <input ng-model="hc.name">
                     </md-input-container>
-                    <md-input-container>
-                        <label>Tags - Replace with chips</label>
-                        <input ng-model="hc.tags">
-                    </md-input-container>
                 </md-card>
 
                 <!-- Multiple Choice Template -->
@@ -60,15 +56,9 @@
                                 <md-option value="d">D</md-option>
                             </md-select>
                             </md-input-container>
-                            <!-- <md-input-container flex="50">
-                            <label>Correct Answer</label>
-                            <input ng-model="hc.currentMCCA">
-                        </md-input-container> -->
                         </div>
-                    </md-card-content>
-
+                    </md-card-content
                     <md-button class="md-primary" ng-click="hc.pushMCQ(hc.currentMCQ, hc.currentMCA1, hc.currentMCA2, hc.currentMCA3, hc.currentMCA4, hc.currentMCCA)">Make New Multiple Choice Question</md-button>
-
                 </md-card>
 
                 <!-- Short Answer Tempalte -->
@@ -80,17 +70,17 @@
                     </md-card-title>
                     <md-input-container>
                         <label>Question:</label>
-                        <input ng-model="hc.currentSAQ">
+                        <textarea ng-model="hc.currentSAQ" rows="2" md-select-on-focus></textarea>
                     </md-input-container>
                     <md-input-container>
                         <label>Notes or Answer</label>
-                        <input ng-model="hc.currentSAA">
+                        <textarea ng-model="hc.currentSAA" rows="2" md-select-on-focus></textarea>
                     </md-input-container>
                     <br/>
                     <md-button class="md-primary" ng-click="hc.pushSAQ(hc.currentSAQ, hc.currentSAA)">Make New Short Answer Question</md-button>
-
                 </md-card>
 
+                <!-- Essay template below -->
                 <md-card>
                     <md-card-title>
                         <md-card-title-text>
@@ -99,18 +89,19 @@
                     </md-card-title>
                     <md-input-container>
                         <label>Essay Title/Question</label>
-                        <input ng-model="hc.currentEQ">
+                        <textarea ng-model="hc.currentEQ" rows="2" md-select-on-focus></textarea>
                     </md-input-container>
                     <md-input-container>
                         <label>Essay Notes & Answers</label>
-                        <input ng-model="hc.currentEA">
+                        <textarea ng-model="hc.currentEA" rows="4" md-select-on-focus></textarea>
                     </md-input-container>
                     <br>
                     <md-button class="md-primary" ng-click="hc.pushEssayQ(hc.currentEQ, hc.currentEA)">Make New Essay Topic</md-button>
-
                 </md-card>
+
+                <!-- Final submit button -->
                 <md-card>
-                    <md-button class="md-primary" ng-click="hc.pushToQuiz(hc.name, hc.tags, hc.questions)">Finish & Submit Module</md-button>
+                    <md-button class="md-primary" ng-click="hc.pushToQuiz(hc.name, hc.questions)">Finish & Submit Module</md-button>
                 </md-card>
             </form>
         </div>

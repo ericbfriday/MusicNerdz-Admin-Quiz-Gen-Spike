@@ -14,7 +14,6 @@ myApp.controller('HomeController', function ($http) {
 
     vm.quiz = {data: []};
     vm.name = '';
-    vm.tags = [];
     vm.questions = []; // holds questions to push into quiz
     vm.currentMCQ = ''; // MC Question
     vm.currentMCA1 = ''; // MC Answers 1-4 below
@@ -95,21 +94,20 @@ myApp.controller('HomeController', function ($http) {
         vm.currentEA = ''; // Essay Answer/hints to grade on
     }; // end pushEssayQ function
 
-    // creates overarching 'quiz' item which holds name, tags, and questions.
+    // creates overarching 'quiz' item which holds name and questions.
     // entire 'quiz'will be sent to backend for insertion into DB.
     class Quiz {
-        constructor (name, tags, q){
+        constructor (name, q){
             this.name = name; // name is to be a string
-            this.tags = tags; // tags will be an array of string
             this.questions = q; // questions will be a class of either multiple choice, short answer, or essay. 
                                         // questions will be an array of objects of the above questions.
         }
     } // end Quiz class
 
-    // creates quiz object using name, tags, and questions array.
+    // creates quiz object using name and questions array.
     // POST calls to router with quiz object. Response logged and quiz array reset to 0;
-    vm.pushToQuiz = (name, tags, q) => {
-        vm.newQuiz = new Quiz(name, tags, q);
+    vm.pushToQuiz = (name, q) => {
+        vm.newQuiz = new Quiz(name, q);
         vm.quiz.data.push(vm.newQuiz);
         console.log('logging vm.quiz in pushToquiz => ', vm.quiz);
         return $http.post('/quizGeneration', vm.quiz)
@@ -117,7 +115,6 @@ myApp.controller('HomeController', function ($http) {
             console.log('Posted');
             vm.quiz.data.length = 0; // empties quiz item
             vm.name = '';
-            vm.tags = [];
         })
         .catch((e)=>{
             console.log('logging catch error in vm.pushToQuiz', e);
