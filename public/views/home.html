@@ -1,5 +1,83 @@
 <section>
-    <form>
+    <form name="newQuizForm">
+        <div class="quizInfo">
+            <md-input-container>
+                <label>Quiz Name:</label>
+                <input ng-model="hc.name">
+            </md-input-container>
+            <md-input-container>
+                <label>Tags:</label>
+                <input ng-model="hc.tags">
+            </md-input-container>
+            <br>
+        </div>
+
+        <!-- Multiple Choice Template -->
+        <div class="multipleChoiceQuestion">Multiple Choice:
+            <div>
+                <md-input-container>
+                    <label>Question:</label>
+                    <input ng-model="hc.currentMCQ">
+                </md-input-container>
+            </div>
+            a)
+            <md-input-container>
+                <label>Potential Answer A</label>
+                <input ng-model="hc.currentMCA1"> b)
+                <md-input-container>
+                    <label>Potential Answer B</label>
+                    <input ng-model="hc.currentMCA2">
+                </md-input-container>
+                c)
+                <md-input-container>
+                    <label>Potential Answer C</label>
+                    <input ng-model="hc.currentMCA3">
+                </md-input-container>
+                d)
+                <md-input-container>
+                    <label>Potential Answer D</label>
+                    <input ng-model="hc.currentMCA4">
+                </md-input-container><br/>
+                <md-input-container>
+                        <label>Correct Answer</label>
+                        <input ng-model="hc.currentMCCA">
+                    </md-input-container><br/>
+                <md-button class="md-primary" ng-click="hc.pushMCQ(hc.currentMCQ, hc.currentMCA1, hc.currentMCA2, hc.currentMCA3, hc.currentMCA4)">Make New Multiple Choice Question</md-button>
+        </div>
+
+        <!-- Short Answer Tempalte -->
+        <div class="shortAnswer">Short Answer:
+            <md-input-container>
+                <label>Question:</label>
+                <input ng-model="hc.currentSAQ">
+            </md-input-container>
+            <md-input-container>
+                <label>Notes or Answer</label>
+                <input ng-model="hc.currentSAA">
+            </md-input-container><br/>
+            <md-button class="md-primary" function="hc.newShortAnswer()">Make New Short Answer Question</md-button>
+        </div>
+
+        <div class="essay">Essay:
+            <md-input-container>
+                <label>Essay Title/Question</label>
+                <input ng-model="hc.currentEQ">
+            </md-input-container>
+            <md-input-container>
+                <label>Essay Notes & Answers</label>
+                <input ng-model="hc.currentEA">
+            </md-input-container>
+            <br>
+            <md-button class="md-primary" function="hc.newEssay()">Make New Essay Topic</md-button>
+        </div>
+
+        <div>
+            <md-button class="md-primary" function="hc.pushToQuiz(hc.name, hc.tags, hc.questions)">Finish & Submit Module</md-button>
+        </div>
+    </form>
+    <!-- Origin try below using ng-bind-html. Issues with interpolation and XSS vulnerability meant a
+    change in direction was necessary. -->
+    <!-- <form>
         <div class="quizInfo">
             <md-input-container>
                 <label>Quiz Name:</label>
@@ -14,8 +92,6 @@
 
         <md-button class="md-primary" function="hc.newMultipleChoice()">Make New Multiple Choice Question</md-button>
         <div ng-bind-html="hc.multipleChoiceTemplate"></div>
-        <!-- Cannot use ng-bind-html with ngSanitize for injecting new question templates to DOM 
-        due to expressions from angular/ngMaterial-->
 
         <md-button class="md-primary" function="hc.newShortAnswer()">Make New Short Answer Question</md-button>
         <div ng-bind-html="hc.shortAnswerTemplate" class="shortAnswer"></div>
@@ -23,5 +99,5 @@
         <md-button class="md-primary" function="hc.newEssay()">Make New Essay Topic</md-button>
         <div ng-bind-html="hc.essayTemplate" class="essayQuestion"></div>
 
-    </form>
+    </form> -->
 </section>
