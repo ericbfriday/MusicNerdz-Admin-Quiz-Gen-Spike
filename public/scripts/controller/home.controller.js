@@ -27,7 +27,7 @@ myApp.controller('HomeController', function ($http) {
     vm.currentEQ = ''; // Essay Question/Topic
     vm.currentEA = ''; // Essay Answer/hints to grade on
 
-    // creates a multiple choice question to be inserted into questions array
+    // establishes structure for multiple choice question to be inserted into questions array
     class MCQuestion {
         constructor (q, a1, a2, a3, a4, ca){
             this.question = q;
@@ -55,7 +55,7 @@ myApp.controller('HomeController', function ($http) {
         vm.currentMCCA = '';
     }; // end pushMCQ function
 
-    // creates a SA Q to be inserted into Q array
+    // establishes structure for SA Q to be inserted into Q array
     class ShortAnsQuestion {
         constructor (q, a) {
             this.question = q;
@@ -75,7 +75,7 @@ myApp.controller('HomeController', function ($http) {
         vm.currentSAA = ''; // SA Answer/hints to grade on
     }; // end pushSAQ function
 
-    // creates Essay question to be pushed into Q array
+    // establishes structure for essay class Qs to be pushed into Q array
     class Essay {
         constructor (q, a) {
             this.question = q;

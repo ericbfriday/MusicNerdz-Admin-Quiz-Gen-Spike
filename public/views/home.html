@@ -1,109 +1,120 @@
 <section>
     <!-- See readability notes in controller for abbreviations -->
-    <form name="newQuizForm">
-        <div class="quizInfo">
-            <md-input-container>
-                <label>Quiz Name:</label>
-                <input ng-model="hc.name">
-            </md-input-container>
-            <md-input-container>
-                <label>Tags - Replace with chips</label>
-                <input ng-model="hc.tags">
-            </md-input-container>
-            <br>
+    <md-content>
+        <div layout="column">
+            <form name="newQuizForm">
+                <md-card>
+                    <md-input-container>
+                        <label>
+                            <span class="md-headline">Quiz Name</span>
+                        </label>
+                        <input ng-model="hc.name">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Tags - Replace with chips</label>
+                        <input ng-model="hc.tags">
+                    </md-input-container>
+                </md-card>
+
+                <!-- Multiple Choice Template -->
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Multiple Choice:</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <div layout="row" layout-align="center center" flex layout-fill>
+                            <md-input-container flex="100">
+                                <label>Question:</label>
+                                <textarea ng-model="hc.currentMCQ" rows="2" md-select-on-focus></textarea>
+                            </md-input-container>
+                        </div>
+                        <div layout="row" layout-align="center center" flex layout-fill>
+                            <md-input-container flex="50">
+                                <label>Potential Answer A</label>
+                                <input ng-model="hc.currentMCA1">
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Potential Answer B</label>
+                                <input ng-model="hc.currentMCA2">
+                            </md-input-container>
+                        </div>
+                        <div layout="row" layout-align="center center" flex layout-fill>
+                            <md-input-container flex="50">
+                                <label>Potential Answer C</label>
+                                <input ng-model="hc.currentMCA3">
+                            </md-input-container>
+                            <md-input-container flex="50">
+                                <label>Potential Answer D</label>
+                                <input ng-model="hc.currentMCA4">
+                            </md-input-container>
+                        </div>
+                        <div layout="row" layout-align="left center" flex layout-fill>
+                            <md-input-container flex="50">
+                                <label>Correct Answer</label>
+                                <md-select name="correctAnswer" ng-model="hc.currentMCCA" required>
+                                <md-option value="a">A</md-option>
+                                <md-option value="b">B</md-option>
+                                <md-option value="c">C</md-option>
+                                <md-option value="d">D</md-option>
+                            </md-select>
+                            </md-input-container>
+                            <!-- <md-input-container flex="50">
+                            <label>Correct Answer</label>
+                            <input ng-model="hc.currentMCCA">
+                        </md-input-container> -->
+                        </div>
+                    </md-card-content>
+
+                    <md-button class="md-primary" ng-click="hc.pushMCQ(hc.currentMCQ, hc.currentMCA1, hc.currentMCA2, hc.currentMCA3, hc.currentMCA4, hc.currentMCCA)">Make New Multiple Choice Question</md-button>
+
+                </md-card>
+
+                <!-- Short Answer Tempalte -->
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Short Answer:</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-input-container>
+                        <label>Question:</label>
+                        <input ng-model="hc.currentSAQ">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Notes or Answer</label>
+                        <input ng-model="hc.currentSAA">
+                    </md-input-container>
+                    <br/>
+                    <md-button class="md-primary" ng-click="hc.pushSAQ(hc.currentSAQ, hc.currentSAA)">Make New Short Answer Question</md-button>
+
+                </md-card>
+
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Essay:</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-input-container>
+                        <label>Essay Title/Question</label>
+                        <input ng-model="hc.currentEQ">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Essay Notes & Answers</label>
+                        <input ng-model="hc.currentEA">
+                    </md-input-container>
+                    <br>
+                    <md-button class="md-primary" ng-click="hc.pushEssayQ(hc.currentEQ, hc.currentEA)">Make New Essay Topic</md-button>
+
+                </md-card>
+                <md-card>
+                    <md-button class="md-primary" ng-click="hc.pushToQuiz(hc.name, hc.tags, hc.questions)">Finish & Submit Module</md-button>
+                </md-card>
+            </form>
         </div>
+    </md-content>
 
-        <!-- Multiple Choice Template -->
-        <div class="multipleChoiceQuestion">Multiple Choice:
-            <div>
-                <md-input-container>
-                    <label>Question:</label>
-                    <input ng-model="hc.currentMCQ">
-                </md-input-container>
-            </div>
-            a)
-            <md-input-container>
-                <label>Potential Answer A</label>
-                <input ng-model="hc.currentMCA1">
-            </md-input-container>
-            b)
-            <md-input-container>
-                <label>Potential Answer B</label>
-                <input ng-model="hc.currentMCA2">
-            </md-input-container>
-            c)
-            <md-input-container>
-                <label>Potential Answer C</label>
-                <input ng-model="hc.currentMCA3">
-            </md-input-container>
-            d)
-            <md-input-container>
-                <label>Potential Answer D</label>
-                <input ng-model="hc.currentMCA4">
-            </md-input-container>
-            <br/>
-            <md-input-container>
-                <label>Correct Answer</label>
-                <input ng-model="hc.currentMCCA">
-            </md-input-container>
-            <br/>
-            <md-button class="md-primary" ng-click="hc.pushMCQ(hc.currentMCQ, hc.currentMCA1, hc.currentMCA2, hc.currentMCA3, hc.currentMCA4, hc.currentMCCA)">Make New Multiple Choice Question</md-button>
-        </div>
 
-        <!-- Short Answer Tempalte -->
-        <div class="shortAnswer">Short Answer:
-            <md-input-container>
-                <label>Question:</label>
-                <input ng-model="hc.currentSAQ">
-            </md-input-container>
-            <md-input-container>
-                <label>Notes or Answer</label>
-                <input ng-model="hc.currentSAA">
-            </md-input-container>
-            <br/>
-            <md-button class="md-primary" ng-click="hc.pushSAQ(hc.currentSAQ, hc.currentSAA)">Make New Short Answer Question</md-button>
-        </div>
-
-        <div class="essay">Essay:
-            <md-input-container>
-                <label>Essay Title/Question</label>
-                <input ng-model="hc.currentEQ">
-            </md-input-container>
-            <md-input-container>
-                <label>Essay Notes & Answers</label>
-                <input ng-model="hc.currentEA">
-            </md-input-container>
-            <br>
-            <md-button class="md-primary" ng-click="hc.pushEssayQ(hc.currentEQ, hc.currentEA)">Make New Essay Topic</md-button>
-        </div>
-
-        <div>
-            <md-button class="md-primary" ng-click="hc.pushToQuiz(hc.name, hc.tags, hc.questions)">Finish & Submit Module</md-button>
-        </div>
-    </form>
-    <!-- Origin try below using ng-bind-html. Issues with interpolation and XSS vulnerability meant a
-    change in direction was necessary. -->
-    <!-- <form>
-        <div class="quizInfo">
-            <md-input-container>
-                <label>Quiz Name:</label>
-                <input ng-model="hc.quiz.name">
-            </md-input-container>
-            <md-input-container>
-                <label>Tags:</label>
-                <input ng-model="hc.quiz.tags">
-            </md-input-container>
-            <br>
-        </div>
-
-        <md-button class="md-primary" function="hc.newMultipleChoice()">Make New Multiple Choice Question</md-button>
-        <div ng-bind-html="hc.multipleChoiceTemplate"></div>
-
-        <md-button class="md-primary" function="hc.newShortAnswer()">Make New Short Answer Question</md-button>
-        <div ng-bind-html="hc.shortAnswerTemplate" class="shortAnswer"></div>
-
-        <md-button class="md-primary" function="hc.newEssay()">Make New Essay Topic</md-button>
-        <div ng-bind-html="hc.essayTemplate" class="essayQuestion"></div>
-
-    </form> -->
 </section>
